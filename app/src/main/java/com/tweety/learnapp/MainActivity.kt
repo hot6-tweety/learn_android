@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 //        ViewModel Factory 팩토리 패턴으로 뷰모델에 초기값 적용
-        val factory = MyViewModelFactory(10, this)
+        val myRepositoryImpl = MyRepositoryImpl(10)
+        val factory = MyViewModelFactory(10, myRepositoryImpl,this)
 //        val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
         val myViewModel by viewModels<MyViewModel> { factory }
 //        ActivityViewModelLazy, FragmentViewModelLazy
@@ -56,7 +57,9 @@ class MainActivity : AppCompatActivity() {
 //            binding.textView.text = myViewModel.counter.toString()
 //            myViewModel.saveState()
 
-            myViewModel.liveCounter.value = myViewModel.liveCounter.value?.plus(1)
+//            myViewModel.liveCounter.value = myViewModel.liveCounter.value?.plus(1)
+
+            myViewModel.increaseCounter()
         }
 
         // 라이브데이터 옵저빙
