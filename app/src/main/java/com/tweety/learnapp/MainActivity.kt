@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 */
         // ViewModel Factory
-        val factory = MyViewModelFactory(100)
+        val factory = MyViewModelFactory(100, this)
         //val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
         val myViewModel by viewModels<MyViewModel> { factory }
         // ActivityViewModelLazy, FragmentViewModelLazy
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             myViewModel.counter += 1
             binding.textView.text = myViewModel.counter.toString()
+            myViewModel.saveState()
         }
 
 
