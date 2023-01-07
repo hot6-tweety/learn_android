@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             myViewModel.liveCounter.value = myViewModel.liveCounter.value?.plus(1)
         }
 
-        myViewModel.liveCounter.observe(this) { counter ->
+        myViewModel.modifiedCounter.observe(this) { counter ->
             binding.textView.text = counter.toString()
         }
 
