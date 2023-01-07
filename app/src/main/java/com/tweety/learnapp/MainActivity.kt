@@ -1,7 +1,11 @@
 package com.tweety.learnapp
 
+// https://developer.android.com/topic/libraries/architecture/viewmodel
+// https://developer.android.com/topic/libraries/architecture/saving-states.html#options
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tweety.learnapp.databinding.ActivityMainBinding
@@ -40,12 +44,16 @@ class MainActivity : AppCompatActivity() {
 */
         // ViewModel Factory
         val factory = MyViewModelFactory(100)
-        val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
+        //val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
+        val myViewModel by viewModels<MyViewModel> { factory }
+        // ActivityViewModelLazy, FragmentViewModelLazy
         binding.textView.text = myViewModel.counter.toString()
 
         binding.button.setOnClickListener {
             myViewModel.counter += 1
             binding.textView.text = myViewModel.counter.toString()
         }
+
+
     }
 }
