@@ -6,7 +6,7 @@ package com.tweety.learnapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.tweety.learnapp.databinding.ActivityMainBinding
 
@@ -17,48 +17,57 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-/*
-        var counter = 100
-        binding.textView.text = counter.toString()
+//        setContentView(binding.root)
+        val binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
 
-        binding.button.setOnClickListener {
-            counter += 1
-            binding.textView.text = counter.toString()
-        }
-*/
+//        var counter = 100
+//        binding.textView.text = counter.toString()
+//
+//        binding.button.setOnClickListener {
+//            counter += 1
+//            binding.textView.text = counter.toString()
+//        }
 
-/*      // ViewModel
-        // ViewModelProvider 는 싱글톤이고 초기값 전달 불가
-        val myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
+//        ViewModelProvider 는 싱글톤이고 초기값 전달 불가
+//        val myViewModel = ViewModelProvider(this).get(MyViewModel::class.java)
 
-        // 액티비티가 재구성 될 때마다 값 할당
-        myViewModel.counter = 100
+//        액티비티가 재구성 될 때마다 값 할당
+//        myViewModel.counter = 100
 
-        binding.textView.text = myViewModel.counter.toString()
+//        binding.textView.text = myViewModel.counter.toString()
+//
+//        binding.button.setOnClickListener {
+//            myViewModel.counter += 1
+//            binding.textView.text = myViewModel.counter.toString()
+//        }
 
-        binding.button.setOnClickListener {
-            myViewModel.counter += 1
-            binding.textView.text = myViewModel.counter.toString()
-        }
-*/
-        // ViewModel Factory
-        val factory = MyViewModelFactory(100, this)
-        //val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
+//        ViewModel Factory 팩토리 패턴으로 뷰모델에 초기값 적용
+        val factory = MyViewModelFactory(10, this)
+//        val myViewModel = ViewModelProvider(this, factory).get(MyViewModel::class.java)
         val myViewModel by viewModels<MyViewModel> { factory }
-        // ActivityViewModelLazy, FragmentViewModelLazy
+//        ActivityViewModelLazy, FragmentViewModelLazy
+
+        binding.lifecycleOwner = this
+        binding.viewmodel = myViewModel
         binding.textView.text = myViewModel.counter.toString()
 
         binding.button.setOnClickListener {
-            //myViewModel.counter += 1
-            //binding.textView.text = myViewModel.counter.toString()
-            //myViewModel.saveState()
+//            myViewModel.counter += 1
+//            binding.textView.text = myViewModel.counter.toString()
+//            myViewModel.saveState()
+
             myViewModel.liveCounter.value = myViewModel.liveCounter.value?.plus(1)
         }
 
-        myViewModel.modifiedCounter.observe(this) { counter ->
-            binding.textView.text = counter.toString()
-        }
+        // 라이브데이터 옵저빙
+//        myViewModel.modifiedCounter.observe(this) { counter ->
+//            binding.textView.text = counter.toString()
+//        }
+
+        // 라이브데이터 값 변경
+//        myViewModel.modifiedCounter.observe(this) { counter ->
+//            binding.textView.text = counter.toString()
+//        }
 
 
     }

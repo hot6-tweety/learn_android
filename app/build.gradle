@@ -1,12 +1,14 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.tweety.learnapp'
     compileSdk 33
-    buildFeatures.viewBinding true
+//    buildFeatures.viewBinding true
+    buildFeatures.dataBinding true
 
     defaultConfig {
         applicationId "com.tweety.learnapp"
